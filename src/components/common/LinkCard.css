@@ -1,0 +1,49 @@
+.link-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  margin-top: 8px;
+  border: 1px solid #E0E0E0;
+  border-radius: 6px;
+  background: #FFFFFF;
+  text-decoration: none;
+  color: inherit;
+  max-width: 320px;
+}
+
+.link-card:hover {
+  background: #FAFAFA;
+  border-color: #D1D1D1;
+}
+
+.link-card-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.link-card-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.link-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #242424;
+  line-height: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.link-card-subtitle {
+  font-size: 11px;
+  color: #616161;
+  margin-top: 1px;
+}

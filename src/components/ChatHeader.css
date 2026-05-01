@@ -1,0 +1,155 @@
+.chat-view-header {
+  flex-shrink: 0;
+  border-bottom: 1px solid #E0E0E0;
+}
+
+.chat-header-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 24px;
+  height: 56px;
+}
+
+.chat-header-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #242424;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── Tabs (inline with header) ── */
+.chat-header-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 4px;
+}
+
+.chat-view-tab {
+  background: none;
+  border: none;
+  padding: 14px 6px;
+  position: relative;
+  font-size: 14px;
+  font-weight: 400;
+  color: #424242;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 20px;
+}
+
+.chat-view-tab:hover {
+  color: #242424;
+}
+
+.chat-view-tab.active {
+  color: #242424;
+  font-weight: 600;
+}
+
+/* Underline spans only the tab label (content box), not the full button width. */
+.chat-view-tab.active::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  bottom: 0;
+  height: 3px;
+  background: #6264A7;
+  border-radius: 2px;
+}
+
+.chat-view-tab.tab-add {
+  color: #616161;
+  padding: 14px 8px;
+  display: flex;
+  align-items: center;
+}
+
+.chat-view-tab.tab-add:hover {
+  color: #242424;
+}
+
+/* ── Header actions (right side) ── */
+.chat-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.meet-now-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #616161;
+  font-size: 12px;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.meet-now-btn:hover {
+  background: #f0f0f0;
+  color: #242424;
+}
+
+.meet-chevron {
+  margin-left: -2px;
+}
+
+.participants-btn {
+  gap: 3px;
+}
+
+.participants-count {
+  font-size: 12px;
+  font-weight: 600;
+  color: #616161;
+}
+
+.header-divider {
+  width: 1px;
+  height: 16px;
+  background: #E0E0E0;
+  flex-shrink: 0;
+}
+
+.header-action-btn {
+  background: none;
+  border: none;
+  padding: 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #616161;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-action-btn:hover {
+  background: #f0f0f0;
+  color: #242424;
+}
+
+/* IconButton's neutral active state overridden with the Teams purple accent. */
+.header-action-btn.icon-button-active {
+  background: rgba(98, 100, 167, 0.08);
+  color: #6264A7;
+}
+
+.header-action-btn.icon-button-active:hover {
+  background: rgba(98, 100, 167, 0.12);
+  color: #6264A7;
+}

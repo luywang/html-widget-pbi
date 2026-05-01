@@ -1,0 +1,136 @@
+.chat-compose {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 8px 24px 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.compose-box-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.compose-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: 1px solid #d1d1d1;
+  border-radius: 20px;
+  background: #fff;
+  padding: 6px 8px 6px 16px;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.compose-mention {
+  font-size: 14px;
+  margin-right: 4px;
+  white-space: nowrap;
+}
+
+.compose-input {
+  font-size: 14px;
+  color: #242424;
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+}
+
+.compose-input::placeholder {
+  color: #999;
+}
+
+.compose-actions {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-shrink: 0;
+}
+
+.compose-divider {
+  width: 1px;
+  height: 20px;
+  background: #d1d1d1;
+  margin: 0 4px;
+  flex-shrink: 0;
+}
+
+.compose-btn {
+  background: none;
+  border: none;
+  padding: 5px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #616161;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.compose-btn:hover {
+  background: #f0f0f0;
+  color: #242424;
+}
+
+.copilot-logo-img-sm {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.send-btn {
+  background: none;
+  border: none;
+  padding: 5px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #bbb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.send-btn:hover {
+  background: #f0f0f0;
+  color: #6264A7;
+}
+
+/* ── Jira demo flow hint arrows ──
+   Kept in CSS for the disabled scripted demo flow in ChatView (JIRA_FLOW_ENABLED).
+   Restore the JSX in Compose.jsx if you need them. */
+.main-compose-hint-arrow {
+  position: absolute;
+  right: 12px;
+  top: -22px;
+  color: #E8173A;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  animation: main-compose-hint-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes main-compose-hint-pulse {
+  0%, 100% { opacity: 1; transform: translateY(0); }
+  50% { opacity: 0.4; transform: translateY(3px); }
+}
+
+.demo-hint-arrow-send {
+  color: #E8173A;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  animation: hint-pulse-send 1.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes hint-pulse-send {
+  0%, 100% { opacity: 1; transform: translateX(0); }
+  50% { opacity: 0.4; transform: translateX(-3px); }
+}

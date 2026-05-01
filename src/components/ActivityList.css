@@ -1,0 +1,242 @@
+.activity-rail {
+  width: 390px;
+  flex-shrink: 0;
+  background: #F5F5F5;
+  border-right: 1px solid #E8E8E8;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* ── Header ── */
+.activity-rail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px 10px;
+}
+
+.activity-rail-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #242424;
+}
+
+/* ── Filter pills ── */
+.activity-rail-filters {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 20px 10px;
+}
+
+.activity-filter-pill {
+  background: none;
+  border: 1px solid #D1D1D1;
+  border-radius: 16px;
+  padding: 3px 12px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #424242;
+  cursor: pointer;
+  line-height: 18px;
+  font-family: inherit;
+}
+
+.activity-filter-pill:hover {
+  background: #EBEBEB;
+  border-color: #C0C0C0;
+}
+
+.activity-filter-pill-active,
+.activity-filter-pill-active:hover {
+  background: #E8EBFA;
+  border-color: #B8C0F0;
+  color: #242424;
+  font-weight: 600;
+}
+
+.activity-rail-divider {
+  height: 0;
+  border-top: 1px solid #E0E0E0;
+  flex-shrink: 0;
+}
+
+/* ── List ── */
+.activity-rail-list {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: none;
+  padding: 4px 0;
+}
+
+.activity-rail-list::-webkit-scrollbar {
+  display: none;
+}
+
+.activity-rail-empty {
+  padding: 24px 20px;
+  text-align: center;
+  font-size: 12px;
+  color: #616161;
+  line-height: 16px;
+}
+
+.activity-item {
+  position: relative;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  width: calc(100% - 16px);
+  margin: 0 8px;
+  padding: 10px 12px 10px 10px;
+  border: none;
+  background: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  color: #242424;
+}
+
+.activity-item:hover {
+  background: #FCFBFA;
+}
+
+.activity-item-selected,
+.activity-item-selected:hover {
+  background: #FCFBFA;
+}
+
+/* ── Avatar + action badge ── */
+.activity-avatar-wrap {
+  position: relative;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  margin-top: 1px;
+}
+
+.activity-badge {
+  position: absolute;
+  right: -4px;
+  bottom: -4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 1.5px #F5F5F5;
+  font-size: 10px;
+  line-height: 1;
+}
+
+.activity-item:hover .activity-badge,
+.activity-item-selected .activity-badge {
+  box-shadow: 0 0 0 1.5px #FCFBFA;
+}
+
+.activity-badge-emoji {
+  background: #fff;
+  font-size: 11px;
+}
+
+.activity-badge-reply {
+  background: #5B5FC7;
+  color: #fff;
+}
+
+.activity-badge-mention {
+  background: #5B5FC7;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* ── Body (text) ── */
+.activity-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* Title sits 2px above the other lines. Unread events bold the whole
+   title (not just the actor) so the hierarchy between unread/read reads
+   clearly at a glance. */
+.activity-title {
+  font-size: 14px;
+  line-height: 20px;
+  color: #242424;
+  font-weight: 400;
+  word-break: break-word;
+}
+
+.activity-item-unread .activity-title {
+  font-weight: 700;
+}
+
+.activity-actor,
+.activity-action {
+  color: inherit;
+  font-weight: inherit;
+}
+
+.activity-action {
+  color: #424242;
+}
+
+.activity-item-unread .activity-action {
+  color: #242424;
+}
+
+.activity-preview {
+  font-size: 12px;
+  line-height: 16px;
+  color: #616161;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+.activity-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  line-height: 16px;
+  color: #999;
+  margin-top: 2px;
+  min-width: 0;
+}
+
+.activity-location {
+  color: #616161;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.activity-meta-sep {
+  flex-shrink: 0;
+}
+
+.activity-time {
+  flex-shrink: 0;
+}
+
+.activity-unread-dot {
+  position: absolute;
+  top: 18px;
+  right: 12px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #5B5FC7;
+  flex-shrink: 0;
+}

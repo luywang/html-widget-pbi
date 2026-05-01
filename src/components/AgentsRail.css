@@ -1,0 +1,347 @@
+.agents-rail {
+  width: 380px;
+  min-width: 380px;
+  border-left: 1px solid #E8E8E8;
+  background: #FAFAFA;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.agents-rail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  height: 56px;
+  border-bottom: 1px solid #E8E8E8;
+  flex-shrink: 0;
+}
+
+.agents-rail-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #242424;
+}
+
+.agents-rail-icon-btn {
+  background: none;
+  border: none;
+  padding: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #616161;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.agents-rail-icon-btn:hover {
+  background: #f0f0f0;
+  color: #242424;
+}
+
+/* Override the neutral IconButton active state with the rail's purple accent. */
+.agents-rail-icon-btn.icon-button-active {
+  background: rgba(98, 100, 167, 0.08);
+  color: #6264A7;
+}
+
+.agents-rail-icon-btn.icon-button-active:hover {
+  background: rgba(98, 100, 167, 0.12);
+  color: #6264A7;
+}
+
+.agents-rail-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+.agents-rail-group {
+  padding: 4px 0 8px;
+}
+
+.agents-rail-group + .agents-rail-group {
+  border-top: 1px solid #E8E8E8;
+  margin-top: 4px;
+  padding-top: 12px;
+}
+
+.agents-rail-group-title {
+  padding: 6px 16px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #616161;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.agents-rail-empty {
+  padding: 24px 16px;
+  font-size: 13px;
+  color: #616161;
+  text-align: center;
+}
+
+.agent-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+}
+
+.agent-item-clickable {
+  cursor: pointer;
+}
+
+.agent-item-clickable:hover {
+  background: #F0F0F0;
+}
+
+.agent-item-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.agent-item-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #242424;
+  line-height: 18px;
+}
+
+.agent-item-description {
+  font-size: 12px;
+  color: #616161;
+  line-height: 16px;
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── L2: Agent chat ── */
+.agents-rail-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.agents-rail-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.agents-rail-sessions-wrap {
+  position: relative;
+}
+
+.agents-rail-session-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  min-width: 220px;
+  background: #fff;
+  border: 1px solid #E0E0E0;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  padding: 4px 0;
+}
+
+.agents-rail-session-item {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.agents-rail-session-item:hover {
+  background: #F0F0F0;
+}
+
+.agents-rail-session-item-active {
+  background: #F5F5F7;
+}
+
+.agents-rail-session-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #242424;
+  line-height: 18px;
+}
+
+.agents-rail-session-item-active .agents-rail-session-name {
+  color: #6264A7;
+}
+
+.agents-rail-session-time {
+  font-size: 11px;
+  color: #999;
+  margin-top: 1px;
+}
+
+.agent-chat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: #FFFFFF;
+}
+
+.agent-chat-context {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 16px;
+  font-size: 11px;
+  color: #616161;
+  background: #F5F5F5;
+  border-bottom: 1px solid #E8E8E8;
+  flex-shrink: 0;
+}
+
+.agent-chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.agent-chat-messages::-webkit-scrollbar {
+  display: none;
+}
+
+.agent-chat-row {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+}
+
+.agent-chat-row-mine {
+  align-items: flex-end;
+}
+
+.agent-chat-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.agent-chat-row-mine .agent-chat-meta {
+  flex-direction: row-reverse;
+}
+
+.agent-chat-sender-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #242424;
+}
+
+.agent-chat-timestamp {
+  font-size: 12px;
+  color: #999;
+}
+
+.agent-chat-bubble {
+  font-size: 14px;
+  line-height: 20px;
+  color: #242424;
+  background: #F5F5F5;
+  padding: 8px 12px;
+  border-radius: 4px;
+  max-width: 85%;
+  word-wrap: break-word;
+}
+
+.agent-chat-row-mine .agent-chat-bubble {
+  background: #E8EBFA;
+}
+
+/* Rail-level layout for the TypingIndicator when used in the agent chat:
+   slots in above the rail's compose with a little left padding. */
+.agent-chat-typing {
+  padding: 0 16px;
+  flex-shrink: 0;
+  height: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.agent-chat-compose {
+  position: relative;
+  padding: 8px 16px 16px;
+  background: #FFFFFF;
+  flex-shrink: 0;
+}
+
+.agent-chat-hint-arrow {
+  position: absolute;
+  right: 22px;
+  top: -14px;
+  color: #E8173A;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  animation: agent-chat-hint-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes agent-chat-hint-pulse {
+  0%, 100% { opacity: 1; transform: translateY(0); }
+  50% { opacity: 0.4; transform: translateY(3px); }
+}
+
+.agent-chat-compose-box {
+  display: flex;
+  align-items: center;
+  border: 1px solid #d1d1d1;
+  border-radius: 20px;
+  background: #fff;
+  padding: 6px 8px 6px 16px;
+  gap: 4px;
+}
+
+.agent-chat-input {
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+  color: #242424;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+}
+
+.agent-chat-input::placeholder {
+  color: #999;
+}
+
+.agent-chat-send {
+  background: none;
+  border: none;
+  padding: 5px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #bbb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.agent-chat-send:hover {
+  background: #f0f0f0;
+  color: #6264A7;
+}

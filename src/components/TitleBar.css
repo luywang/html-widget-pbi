@@ -1,0 +1,93 @@
+.title-bar {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 8px 0 12px;
+  background: #EBEBEB;
+  color: #242424;
+  -webkit-app-region: drag;
+  flex-shrink: 0;
+  border-bottom: 1px solid #E0E0E0;
+}
+
+.title-bar-left {
+  display: flex;
+  align-items: center;
+  min-width: 68px;
+}
+
+.title-bar-nav-buttons {
+  display: flex;
+  gap: 2px;
+}
+
+.title-btn {
+  background: none;
+  border: none;
+  color: #616161;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-app-region: no-drag;
+}
+
+.title-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #242424;
+}
+
+.title-bar-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  -webkit-app-region: no-drag;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #FAFAFA;
+  border: 1px solid #d1d1d1;
+  border-radius: 4px;
+  padding: 0 12px;
+  width: 100%;
+  max-width: 468px;
+  height: 32px;
+  cursor: text;
+}
+
+.search-box:hover {
+  background: #F5F5F5;
+}
+
+.search-icon {
+  flex-shrink: 0;
+  color: #616161;
+}
+
+.search-placeholder {
+  font-size: 12px;
+  color: #999;
+}
+
+.title-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 68px;
+  justify-content: flex-end;
+}
+
+.title-user-avatar {
+  cursor: pointer;
+  margin-left: 4px;
+  -webkit-app-region: no-drag;
+}
+
+.title-user-avatar:hover {
+  opacity: 0.9;
+}

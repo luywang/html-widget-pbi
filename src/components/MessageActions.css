@@ -1,0 +1,69 @@
+/* Hover toolbar above a message bubble. Hidden by default; shown when the row
+   (or its descendants) is hovered. Placed inside the bubble with absolute
+   positioning so the hover hit-zone stays continuous as the cursor travels
+   from the bubble up to the toolbar. */
+.message-actions {
+  position: absolute;
+  top: -36px;
+  right: 0;
+  display: none;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 6px;
+  background: #FFFFFF;
+  border: 1px solid #E0E0E0;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  z-index: 5;
+  white-space: nowrap;
+}
+
+/* Small invisible hover zone at the top-right corner of the bubble — the only
+   area that reveals the toolbar. Sits flush against the toolbar's bottom edge
+   so the cursor can travel continuously from trigger → toolbar without the
+   toolbar disappearing mid-move. */
+.message-actions-trigger {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 96px;
+  height: 20px;
+  z-index: 4;
+}
+
+.message-actions-trigger:hover ~ .message-actions,
+.message-actions:hover {
+  display: flex;
+}
+
+.message-action-btn {
+  background: none;
+  border: none;
+  padding: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #616161;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  min-width: 28px;
+  min-height: 28px;
+}
+
+.message-action-btn:hover {
+  background: #F0F0F0;
+  color: #242424;
+}
+
+.message-action-emoji {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.message-actions-divider {
+  width: 1px;
+  height: 20px;
+  background: #E0E0E0;
+  margin: 0 2px;
+}

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" fill="#1F2A3A"/>
+  <g fill="#D4B472">
+    <!-- Left ear -->
+    <path d="M10 8 L24 30 L14 30 Z"/>
+    <!-- Right ear -->
+    <path d="M54 8 L50 30 L40 30 Z"/>
+    <!-- Face (pentagon narrowing to chin) -->
+    <path d="M12 26 L32 22 L52 26 L42 50 L32 56 L22 50 Z"/>
+  </g>
+</svg>

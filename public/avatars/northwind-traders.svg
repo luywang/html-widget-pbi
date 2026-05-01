@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" fill="#0A5D87"/>
+  <g fill="#FFFFFF">
+    <!-- Mainsail (right of mast) -->
+    <path d="M33 12 L33 40 L52 40 Z"/>
+    <!-- Jib (left of mast) -->
+    <path d="M31 18 L31 40 L16 40 Z"/>
+    <!-- Hull -->
+    <path d="M10 42 L54 42 L48 52 L16 52 Z"/>
+  </g>
+  <!-- Waterline accent -->
+  <path d="M6 56 Q16 52 26 56 T46 56 T62 56"
+        stroke="#5FC2BA" stroke-width="2" fill="none" stroke-linecap="round"/>
+</svg>

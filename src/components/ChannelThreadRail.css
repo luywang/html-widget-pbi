@@ -1,0 +1,152 @@
+/* Right-pane thread view for a channel post. Mirrors the look of AgentsRail
+   (width, header bar, divider treatment) so multiple rails feel consistent,
+   but shows a root MessageRow + its replies instead of an agent chat. */
+
+.channel-thread-rail {
+  width: 420px;
+  min-width: 420px;
+  border-left: 1px solid #E8E8E8;
+  background: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.channel-thread-rail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 16px;
+  height: 56px;
+  border-bottom: 1px solid #E8E8E8;
+  flex-shrink: 0;
+}
+
+/* Single-line "Threads › [initial message]" with ellipsis on overflow. The
+   subject span is the only flex child that shrinks, so the "Threads ›"
+   prefix always stays fully visible. */
+.channel-thread-rail-title {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  min-width: 0;
+  flex: 1;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 18px;
+  color: #242424;
+}
+
+.channel-thread-rail-title-prefix {
+  flex-shrink: 0;
+  color: #616161;
+}
+
+.channel-thread-rail-title-chevron {
+  flex-shrink: 0;
+  color: #616161;
+  font-weight: 400;
+}
+
+.channel-thread-rail-title-subject {
+  min-width: 0;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.channel-thread-rail-close {
+  background: none;
+  border: none;
+  padding: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #616161;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.channel-thread-rail-close:hover {
+  background: #F0F0F0;
+  color: #242424;
+}
+
+.channel-thread-rail-body {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.channel-thread-rail-body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Reuse the messages-container spacing rhythm from the main canvas so rows
+   render identically. `.messages-container`'s max-width/padding is meant for
+   the full canvas; we override padding to fit the narrower rail. */
+/* MessageRow applies margin-left: -40px / margin-right: -40px to reach the
+   canvas's visual edge. Pad by 56px on both sides here so the effective
+   spacing is 16px after those negative margins — avatars and mine-bubbles
+   breathe the same on both sides of the narrower rail. */
+.channel-thread-rail-messages {
+  padding: 12px 56px 16px 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.channel-thread-rail-compose {
+  padding: 8px 16px 16px;
+  background: #FFFFFF;
+  flex-shrink: 0;
+  border-top: 1px solid #E8E8E8;
+}
+
+.channel-thread-rail-compose-box {
+  display: flex;
+  align-items: center;
+  border: 1px solid #d1d1d1;
+  border-radius: 20px;
+  background: #fff;
+  padding: 6px 8px 6px 16px;
+  gap: 4px;
+}
+
+.channel-thread-rail-input {
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+  color: #242424;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+}
+
+.channel-thread-rail-input::placeholder {
+  color: #999;
+}
+
+.channel-thread-rail-send {
+  background: none;
+  border: none;
+  padding: 5px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #bbb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.channel-thread-rail-send:hover {
+  background: #f0f0f0;
+  color: #6264A7;
+}
