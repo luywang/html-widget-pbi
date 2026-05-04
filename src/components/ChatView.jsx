@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import {
   messagesByContact,
   contacts,
@@ -366,7 +366,7 @@ export default function ChatView({
     }
   }
 
-  const openJiraThread = () => {
+  const openJiraThread = useCallback(() => {
     // The reply indicator acts as a toggle: if the rail is already showing
     // the Jira thread, collapse it; otherwise open it on Jira.
     if (showAgents && selectedRailAgent?.id === 4) {
@@ -377,7 +377,11 @@ export default function ChatView({
     if (!jira) return
     setSelectedRailAgent(jira)
     setShowAgents(true)
-  }
+  }, [showAgents, selectedRailAgent])
+
+  const toggleChannelThread = useCallback((message) => {
+    setChannelThreadPostId((prev) => (prev === message.id ? null : message.id))
+  }, [])
 
   const startJiraDemoFlow = (sentText) => {
     const parts = []
@@ -542,9 +546,7 @@ export default function ChatView({
                   key={post.id}
                   message={postToMessage(post)}
                   activeContact={activeContact}
-                  onOpenThread={() => {
-                    setChannelThreadPostId((prev) => (prev === post.id ? null : post.id))
-                  }}
+                  onOpenThread={toggleChannelThread}
                 />
               ))}
               <div ref={messagesEndRef} />

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, memo } from 'react'
 import { agentLogos } from '../shared/agentLogos'
 import { contacts, currentUser } from '../data/contacts'
 import { Avatar, LinkCard, PrivateDisclaimer } from './common'
@@ -53,7 +53,7 @@ function ThreadReplyBadge({ reply, onClick }) {
   )
 }
 
-export default function MessageRow({ message, activeContact, onOpenThread }) {
+const MessageRow = memo(function MessageRow({ message, activeContact, onOpenThread }) {
   const isMe = message.senderId === 'me'
   const isMultiParty = activeContact.isGroup || activeContact.isChannel
   const sender = isMe
@@ -177,4 +177,6 @@ export default function MessageRow({ message, activeContact, onOpenThread }) {
       )}
     </div>
   )
-}
+})
+
+export default MessageRow
