@@ -108,14 +108,33 @@ export default function MessageRow({ message, activeContact, onOpenThread }) {
             <div className="message-cards">
               {message.cards.map((card, i) => (
                 <div key={i} className="adaptive-card" style={{ borderLeftColor: card.accentColor }}>
-                  <div className="card-title">{card.title}</div>
-                  <div className="card-facts">
-                    {card.facts.map((fact, j) => (
-                      <span key={j} className="card-fact">
-                        <span className="card-fact-label">{fact.label}:</span> {fact.value}
-                      </span>
-                    ))}
-                  </div>
+                  {card.htmlWidget && (
+                    <div className="card-html-widget" dangerouslySetInnerHTML={{ __html: card.htmlWidget }} />
+                  )}
+                  {card.reportName && (
+                    <div className="card-report-name">{card.reportName}</div>
+                  )}
+                  {card.title && (
+                    <div className="card-title">{card.title}</div>
+                  )}
+                  {card.summary && (
+                    <div className="card-summary">
+                      {Array.isArray(card.summary)
+                        ? card.summary.map((part, j) =>
+                            typeof part === 'string' ? part : <strong key={j}>{part.text}</strong>
+                          )
+                        : card.summary}
+                    </div>
+                  )}
+                  {card.facts && (
+                    <div className="card-facts">
+                      {card.facts.map((fact, j) => (
+                        <span key={j} className="card-fact">
+                          <span className="card-fact-label">{fact.label}:</span> {fact.value}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                   {card.actions && (
                     <div className="card-actions">
                       {card.actions.map((action, j) => (

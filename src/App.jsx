@@ -1,11 +1,13 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { agentSessions as initialSessions, activityEvents as seedActivityEvents } from './data'
 import NavRail from './components/NavRail'
 import ChatList from './components/ChatList'
 import ChatView from './components/ChatView'
 import ActivityList from './components/ActivityList'
 import TitleBar from './components/TitleBar'
+import PowerBIModal from './components/PowerBIModal'
 import './App.css'
+import './components/PowerBIModal.css'
 
 export default function App() {
   const [activeView, setActiveView] = useState('chat') // 'chat' | 'activity'
@@ -20,6 +22,8 @@ export default function App() {
   // session (sessions rail), open a specific channel thread, or flash a
   // specific message so the user can see where a notification landed.
   const [navIntent, setNavIntent] = useState(null)
+  // Power BI modal state
+  const [powerBIModal, setPowerBIModal] = useState({ isOpen: false, reportName: '', chartData: [] })
 
   const selectChat = useCallback((chatId) => {
     setActiveChatId(chatId)
@@ -72,6 +76,25 @@ export default function App() {
 
   const activityUnreadCount = activityEvents.reduce((n, e) => n + (e.unread ? 1 : 0), 0)
 
+  // Listen for Power BI expand messages from iframes
+  useEffect(() => {
+    const handleMessage = (event) => {
+      if (event.data.type === 'expandPowerBI') {
+        setPowerBIModal({
+          isOpen: true,
+          reportName: event.data.data.reportName,
+          chartData: event.data.data.chartData,
+        })
+      }
+    }
+    window.addEventListener('message', handleMessage)
+    return () => window.removeEventListener('message', handleMessage)
+  }, [])
+
+  const closePowerBIModal = useCallback(() => {
+    setPowerBIModal({ isOpen: false, reportName: '', chartData: [] })
+  }, [])
+
   return (
     <div className="app">
       <TitleBar />
@@ -106,6 +129,12 @@ export default function App() {
           clearNavIntent={clearNavIntent}
         />
       </div>
+      <PowerBIModal
+        isOpen={powerBIModal.isOpen}
+        onClose={closePowerBIModal}
+        reportName={powerBIModal.reportName}
+        chartData={powerBIModal.chartData}
+      />
     </div>
   )
 }

@@ -328,6 +328,32 @@
   padding: 8px 12px;
 }
 
+.card-html-widget {
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+
+.card-html-widget iframe {
+  display: block;
+  width: 100%;
+}
+
+.card-report-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #242424;
+  line-height: 22px;
+  margin-bottom: 8px;
+}
+
+.card-summary {
+  font-size: 13px;
+  font-weight: 400;
+  color: #616161;
+  line-height: 18px;
+  margin-top: 8px;
+}
+
 .card-title {
   font-size: 13px;
   font-weight: 600;
