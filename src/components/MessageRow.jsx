@@ -138,7 +138,17 @@ const MessageRow = memo(function MessageRow({ message, activeContact, onOpenThre
           {message.cards && showCards && (
             <div className="message-cards">
               {message.cards.map((card, i) => (
-                <div key={i} className="adaptive-card" style={{ borderLeftColor: card.accentColor }}>
+                <div key={i} className="adaptive-card" style={{ borderLeftColor: 'transparent' }}>
+                  {card.cardHeader && (
+                    <div className="card-header">
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="2" y="8" width="4" height="10" rx="1" fill="#F2C811"/>
+                        <rect x="8" y="5" width="4" height="13" rx="1" fill="#F2C811"/>
+                        <rect x="14" y="2" width="4" height="16" rx="1" fill="#F2C811"/>
+                      </svg>
+                      <span className="card-header-app-name">{card.cardHeader.appName}</span>
+                    </div>
+                  )}
                   {card.htmlWidget && (
                     <div className="card-html-widget" dangerouslySetInnerHTML={{ __html: card.htmlWidget }} />
                   )}

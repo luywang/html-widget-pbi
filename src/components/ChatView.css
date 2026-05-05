@@ -328,6 +328,21 @@
   padding: 8px 12px;
 }
 
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #E8E8E8;
+}
+
+.card-header-app-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #424242;
+}
+
 .card-html-widget {
   margin-bottom: 12px;
   overflow: hidden;
@@ -385,17 +400,45 @@
 }
 
 .card-action-btn {
-  background: none;
-  border: none;
-  padding: 0;
-  font-size: 12px;
+  padding: 6px 16px;
+  font-size: 13px;
   font-weight: 600;
-  color: #6264A7;
   cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-.card-action-btn:hover {
-  text-decoration: underline;
+.card-action-btn:first-child {
+  background: #6264A7;
+  color: #FFFFFF;
+  border: 1px solid #6264A7;
+}
+
+.card-action-btn:first-child:hover {
+  background: #4F5092;
+  border-color: #4F5092;
+}
+
+.card-action-btn:first-child:active {
+  background: #3E3F73;
+  border-color: #3E3F73;
+}
+
+.card-action-btn:not(:first-child) {
+  background: #FFFFFF;
+  color: #242424;
+  border: 1px solid #E0E0E0;
+}
+
+.card-action-btn:not(:first-child):hover {
+  background: #F5F5F5;
+  border-color: #C8C8C8;
+}
+
+.card-action-btn:not(:first-child):active {
+  background: #E8E8E8;
+  border-color: #B0B0B0;
 }
 
 /* ── Activity-navigation highlight ──
