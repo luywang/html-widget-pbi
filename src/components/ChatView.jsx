@@ -570,6 +570,63 @@ export default function ChatView({
                     time: nowTimeStr(),
                   }],
                 }))
+
+                // After 5 seconds, Kevin Park asks to add a cutline
+                setTimeout(() => {
+                  const kevinContact = contacts.find(c => c.id === 15)
+                  setMainTypingAgentId(15)
+                  setMainTypingContact(kevinContact)
+
+                  setTimeout(() => {
+                    setMainTypingAgentId(null)
+                    setMainTypingContact(null)
+
+                    // Kevin's request with @Power BI mention
+                    const kevinRequest = [
+                      { type: 'mention', name: 'Power BI' },
+                      ', add visual cutline at 95%'
+                    ]
+                    setExtraMessages((prev) => ({
+                      ...prev,
+                      [bucket]: [...(prev[bucket] || []), {
+                        id: `kevin-request-${Date.now()}`,
+                        senderId: 15,
+                        text: kevinRequest,
+                        time: nowTimeStr(),
+                      }],
+                    }))
+
+                    // Power BI types and responds with adaptive card
+                    setTimeout(() => {
+                      setMainTypingAgentId(chatId)
+                      setMainTypingContact(powerBIContact)
+
+                      setTimeout(() => {
+                        setMainTypingAgentId(null)
+                        setMainTypingContact(null)
+                        setExtraMessages((prev) => ({
+                          ...prev,
+                          [bucket]: [...(prev[bucket] || []), {
+                            id: `powerbi-cutline-${Date.now()}`,
+                            senderId: 31,
+                            text: 'I\'ve added a visual cutline at 95% to highlight the threshold. Here\'s the updated chart:',
+                            time: nowTimeStr(),
+                            cards: [{
+                              cardHeader: { appName: 'Power BI' },
+                              htmlWidget: `<iframe width="100%" height="320" scrolling="no" style="border: 1px solid #E0E0E0; border-radius: 4px; overflow: hidden;" srcdoc="<!DOCTYPE html><html><head><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Segoe UI',sans-serif;overflow:hidden}.chart-column{transition:transform .2s,box-shadow .2s;cursor:pointer;position:relative}.chart-column:hover{transform:translateY(-4px);box-shadow:0 4px 12px rgba(0,0,0,.15)}.column-value{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-size:11px;font-weight:700;opacity:0;transition:opacity .2s;pointer-events:none;z-index:2}.chart-column:hover .column-value{opacity:1}.tooltip{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:8px;background:rgba(36,36,36,.95);color:#fff;padding:6px 10px;border-radius:4px;font-size:11px;pointer-events:none;opacity:0;transition:opacity .2s;white-space:nowrap;z-index:10}.chart-column:hover .tooltip{opacity:1}.action-btn{background:#fff;border:1px solid #e0e0e0;border-radius:4px;padding:6px;font-size:12px;font-weight:600;color:#242424;cursor:pointer;transition:all .2s;font-family:inherit;display:inline-flex;align-items:center;gap:4px;text-decoration:none}.action-btn:hover{background:#f5f5f5;border-color:#c8c8c8}.action-btn:active{background:#e8e8e8}@keyframes shimmer{0%{background-position:-1000px 0}100%{background-position:1000px 0}}.skeleton-bar{background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:1000px 100%;animation:shimmer 2s infinite linear;border-radius:2px 2px 0 0}.cutline{position:absolute;left:0;right:0;height:2px;background:repeating-linear-gradient(90deg,#E74856 0,#E74856 8px,transparent 8px,transparent 14px);z-index:5;pointer-events:none}.cutline-label{position:absolute;right:8px;top:-10px;background:#fff;padding:0 4px;font-size:10px;font-weight:600;color:#E74856}</style></head><body><div id=&quot;loading&quot; style=&quot;display:flex;flex-direction:column;height:100%;padding:16px;background:#fff&quot;><div style=&quot;font-size:14px;font-weight:600;color:#e0e0e0;margin-bottom:12px&quot;>Agent Handoff Success Rate - 30 Day Trend</div><div style=&quot;height:220px;display:flex;align-items:flex-end;gap:3px;padding:0 4px&quot;><div style=&quot;flex:1;height:90px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:162px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:126px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:171px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:135px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:153px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:180px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:144px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:117px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:158px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:166px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:140px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:149px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:188px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:154px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:130px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:160px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:175px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:145px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:138px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:164px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:150px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:170px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:156px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:142px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:147px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:184px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:161px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:192px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:196px&quot; class=&quot;skeleton-bar&quot;></div></div></div><script>window.chartData=[];function expandChart(){window.parent.postMessage({type:'expandPowerBI',data:{reportName:'Northwind Agent Handoff Metrics - 30 Day Trend',chartData:window.chartData}},'*');}function init(){const data=[];const base=95.3;const today=new Date();for(let i=29;i>=0;i--){const d=new Date(today);d.setDate(d.getDate()-i);const m=d.getMonth()+1;const day=d.getDate();const v=base+Math.sin(i/3)*2+(Math.random()-0.5)*1.5;const val=Math.round(Math.min(99.9,Math.max(90,v))*10)/10;const h=Math.floor(1200+Math.random()*400);data.push({date:m+'/'+day,value:val,count:h+' handoffs',height:Math.floor((val-90)*18+20),modalHeight:Math.floor((val-90)*18+20),highlighted:false});}window.chartData=data.map(d=>({date:d.date,value:d.value,count:d.count,height:d.modalHeight,highlighted:d.highlighted}));setTimeout(()=>{document.body.innerHTML='<div style=&quot;display:flex;flex-direction:column;height:100%;padding:16px;background:#fff;position:relative&quot;><button class=&quot;action-btn&quot; onclick=&quot;expandChart()&quot; style=&quot;position:absolute;top:16px;right:16px;z-index:10&quot; title=&quot;Expand&quot;><svg width=&quot;16&quot; height=&quot;16&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot;><path d=&quot;M2 9v4a1 1 0 001 1h4M14 7V3a1 1 0 00-1-1H9&quot; stroke=&quot;#424242&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/><path d=&quot;M14 2L9 7M2 14l5-5&quot; stroke=&quot;#424242&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot;/></svg></button><div style=&quot;font-size:14px;font-weight:600;color:#242424;margin-bottom:12px&quot;>Agent Handoff Success Rate - 30 Day Trend</div><div style=&quot;height:220px;display:flex;align-items:flex-end;gap:3px;padding:0 4px;overflow-x:auto;position:relative&quot;><div class=&quot;cutline&quot; style=&quot;bottom:110px&quot;><span class=&quot;cutline-label&quot;>95%</span></div>'+data.map(d=>'<div style=&quot;flex:1;display:flex;flex-direction:column;align-items:center;min-width:0&quot;><div class=&quot;chart-column&quot; style=&quot;width:100%;background:'+(d.highlighted?'linear-gradient(180deg,#0078D4 0%,#1890E8 100%)':'linear-gradient(180deg,#6264A7 0%,#7C7EB8 100%)')+';border-radius:2px 2px 0 0;height:'+d.height+'px&quot;><div class=&quot;column-value&quot;>'+d.value+'%</div><div class=&quot;tooltip&quot;>'+d.date+': '+d.value+'% &bull; '+d.count+'</div></div><div style=&quot;margin-top:6px;font-size:9px;color:'+(d.highlighted?'#242424':'#999')+';text-align:center;font-weight:'+(d.highlighted?'600':'400')+';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%&quot;>'+d.date+'</div></div>').join('')+'</div><div style=&quot;margin-top:12px&quot;><a href=&quot;https://app.powerbi.com&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot; class=&quot;action-btn&quot; style=&quot;padding:6px 12px&quot; title=&quot;Opens in new window&quot;><svg width=&quot;14&quot; height=&quot;14&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot;><rect x=&quot;2&quot; y=&quot;6&quot; width=&quot;3&quot; height=&quot;8&quot; rx=&quot;1&quot; fill=&quot;#F2C811&quot;/><rect x=&quot;6.5&quot; y=&quot;4&quot; width=&quot;3&quot; height=&quot;10&quot; rx=&quot;1&quot; fill=&quot;#F2C811&quot;/><rect x=&quot;11&quot; y=&quot;2&quot; width=&quot;3&quot; height=&quot;12&quot; rx=&quot;1&quot; fill=&quot;#F2C811&quot;/></svg>Open in Power BI<svg width=&quot;12&quot; height=&quot;12&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; style=&quot;margin-left:4px&quot;><path d=&quot;M6 3h7v7M13 3L3 13&quot; stroke=&quot;#424242&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/></svg></a></div></div>';},2000);}init();</script></body></html>"></iframe>`,
+                              summary: 'Would you like me to make this change in the Power BI report?',
+                              actions: [
+                                'Yes, accept the change automatically',
+                                'Yes, open Power BI and make change there',
+                                'No, do not make a change'
+                              ]
+                            }]
+                          }],
+                        }))
+                      }, 3000)
+                    }, 1200)
+                  }, 2600)
+                }, 5000)
               }, 2500)
             }, 1000)
           }, 2800)
