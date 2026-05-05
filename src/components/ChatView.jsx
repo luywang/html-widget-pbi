@@ -762,7 +762,7 @@ export default function ChatView({
         </div>
 
         <div className="chat-compose-area">
-          {mainTypingAgentId === activeChatId && (
+          {(mainTypingAgentId === activeChatId || (activeChatId === 11 && mainTypingContact)) && (
             <TypingIndicator
               contact={mainTypingContact || activeContact}
               className="chat-compose-typing"
