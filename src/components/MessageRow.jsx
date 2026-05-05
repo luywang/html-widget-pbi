@@ -1,4 +1,4 @@
-import { useState, memo } from 'react'
+import { useState, memo, useEffect } from 'react'
 import { agentLogos } from '../shared/agentLogos'
 import { contacts, currentUser } from '../data/contacts'
 import { Avatar, LinkCard, PrivateDisclaimer } from './common'
@@ -73,6 +73,24 @@ const MessageRow = memo(function MessageRow({ message, activeContact, onOpenThre
   }
   const reactions = buildReactionList(message.reactions, myReactions)
 
+  // Handle delayed card unfurling for realistic loading experience
+  const [showCards, setShowCards] = useState(!message.delayedCards)
+  useEffect(() => {
+    if (message.delayedCards && !showCards) {
+      const timer = setTimeout(() => {
+        setShowCards(true)
+        // Scroll to bottom of message after card unfurls
+        setTimeout(() => {
+          const messageEl = document.querySelector(`[data-message-id="${message.id}"]`)
+          if (messageEl) {
+            messageEl.scrollIntoView({ behavior: 'smooth', block: 'end' })
+          }
+        }, 100)
+      }, 1000)
+      return () => clearTimeout(timer)
+    }
+  }, [message.delayedCards, showCards, message.id])
+
   return (
     <div
       className={`message-row ${isMe ? 'message-mine' : ''}`}
@@ -99,12 +117,25 @@ const MessageRow = memo(function MessageRow({ message, activeContact, onOpenThre
           )}
           {message.subject && <div className="message-subject">{message.subject}</div>}
           {Array.isArray(message.text)
-            ? message.text.map((part, i) =>
-                typeof part === 'string' ? part : <span key={i} className="mention">{part.name}</span>
-              )
+            ? message.text.map((part, i) => {
+                if (typeof part === 'string') return part
+                if (part.type === 'mention') return <span key={i} className="mention">{part.name}</span>
+                if (part.type === 'link') return (
+                  <a
+                    key={i}
+                    href={part.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: '#6264A7', textDecoration: 'underline' }}
+                  >
+                    {part.text}
+                  </a>
+                )
+                return null
+              })
             : message.text}
           {message.link && <LinkCard link={message.link} />}
-          {message.cards && (
+          {message.cards && showCards && (
             <div className="message-cards">
               {message.cards.map((card, i) => (
                 <div key={i} className="adaptive-card" style={{ borderLeftColor: card.accentColor }}>

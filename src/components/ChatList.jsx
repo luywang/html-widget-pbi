@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { favorites, projectNorthwind, chatList, contacts, teams } from '../data'
 import { copilotLogo } from '../shared/assets'
-import { Avatar, ChevronDown, Dots, Search } from './common'
+import { Avatar, ChevronDown, Dots, Search, DemoArrow } from './common'
 import './ChatList.css'
 
 // Small rounded-square team icon used in the Teams & channels section. Mirrors
@@ -61,18 +61,34 @@ export default function ChatList({ activeChatId, onSelectChat, readChatIds }) {
     return next
   })
 
+  // Show demo arrow pointing to "Conversational AI Team" (contact ID 11) on first load
+  const [showDemoArrow, setShowDemoArrow] = useState(true)
+  const handleChatClick = (contactId) => {
+    if (contactId === 11) {
+      setShowDemoArrow(false)
+    }
+    onSelectChat(contactId)
+  }
+
   const renderItem = (chat) => {
     const contact = contacts.find(c => c.id === chat.contactId)
     const unread = isUnread(chat.bold, contact.id)
+    const isTargetChat = contact.id === 11 // Conversational AI Team
     return (
       <div
         key={contact.id}
         className={`chat-list-item ${contact.id === activeChatId ? 'selected' : ''}`}
-        onClick={() => onSelectChat(contact.id)}
+        onClick={() => handleChatClick(contact.id)}
+        style={{ position: 'relative' }}
       >
         <Avatar contact={contact} size={20} />
         <span className={`chat-item-name ${unread ? 'chat-item-bold' : ''}`}>{contact.name}</span>
         {unread && <span className="unread-dot" />}
+        {isTargetChat && showDemoArrow && (
+          <div style={{ position: 'absolute', right: '28px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', zIndex: 10 }}>
+            <DemoArrow direction="left" size={24} />
+          </div>
+        )}
       </div>
     )
   }
@@ -199,7 +215,7 @@ export default function ChatList({ activeChatId, onSelectChat, readChatIds }) {
                   <div
                     key={channel.id}
                     className={`channel-row ${channel.id === activeChatId ? 'selected' : ''}`}
-                    onClick={() => onSelectChat(channel.id)}
+                    onClick={() => handleChatClick(channel.id)}
                   >
                     <span className={`channel-name ${unread ? 'chat-item-bold' : ''}`}>
                       {channel.name}
