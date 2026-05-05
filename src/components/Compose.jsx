@@ -1,3 +1,4 @@
+import { useState, useRef, useEffect } from 'react'
 import { IconButton, Send } from './common'
 import { copilotLogo } from '../shared/assets'
 import './Compose.css'
@@ -7,6 +8,7 @@ import './Compose.css'
 //   • When a `/mention` is present (e.g. "/Jira …"), it's rendered as a
 //     purple pill in front of the input; Backspace on an empty input clears it.
 //   • Channels use "Start a new post" placeholder instead of "Type a message".
+//   • When typing "@" followed by text, shows an at-mention suggestion menu.
 //
 // All action buttons except Send are placeholder styling — wire them up
 // when you need them for a prototype.
@@ -17,11 +19,44 @@ export default function Compose({
   onClearMention,
   onSend,
   isChannel,
+  onMentionSelect,
 }) {
+  const [showMentionMenu, setShowMentionMenu] = useState(false)
+  const [mentionQuery, setMentionQuery] = useState('')
+  const composeRef = useRef(null)
+
+  // Detect @ mentions in the input
+  useEffect(() => {
+    const atIndex = value.lastIndexOf('@')
+    if (atIndex !== -1) {
+      const textAfterAt = value.slice(atIndex + 1)
+      // Show menu if @ is at start or preceded by space, and followed by text
+      const beforeAt = value.slice(0, atIndex)
+      const isValidMention = beforeAt === '' || beforeAt.endsWith(' ')
+
+      // Only show menu if user has typed at least "@Power" (case-insensitive)
+      if (isValidMention) {
+        const query = textAfterAt.toLowerCase()
+        const powerBI = 'power bi'
+        const shouldShow = query.length >= 5 && powerBI.startsWith(query)
+        setMentionQuery(textAfterAt)
+        setShowMentionMenu(shouldShow)
+      } else {
+        setShowMentionMenu(false)
+      }
+    } else {
+      setShowMentionMenu(false)
+    }
+  }, [value])
+
   const handleKeyDown = (e) => {
     if (e.key === 'Backspace' && value === '' && mention) {
       e.preventDefault()
       onClearMention()
+      return
+    }
+    if (e.key === 'Escape' && showMentionMenu) {
+      setShowMentionMenu(false)
       return
     }
     if (e.key === 'Enter') {
@@ -34,8 +69,40 @@ export default function Compose({
     ? ''
     : isChannel ? 'Start a new post' : 'Type a message'
 
+  const handleMentionClick = () => {
+    // Replace the @mention with @Power BI
+    const atIndex = value.lastIndexOf('@')
+    if (atIndex !== -1) {
+      const beforeAt = value.slice(0, atIndex)
+      const newValue = beforeAt + '@Power BI '
+      onChange(newValue)
+      setShowMentionMenu(false)
+      if (onMentionSelect) {
+        onMentionSelect('Power BI')
+      }
+    }
+  }
+
   return (
-    <div className="chat-compose">
+    <div className="chat-compose" ref={composeRef}>
+      {showMentionMenu && (
+        <div className="mention-suggestion-menu">
+          <div className="mention-suggestion-header">Suggestions</div>
+          <div className="mention-suggestion-item" onClick={handleMentionClick}>
+            <div className="mention-suggestion-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="8" width="4" height="10" rx="1" fill="#F2C811"/>
+                <rect x="8" y="5" width="4" height="13" rx="1" fill="#F2C811"/>
+                <rect x="14" y="2" width="4" height="16" rx="1" fill="#F2C811"/>
+              </svg>
+            </div>
+            <div className="mention-suggestion-content">
+              <div className="mention-suggestion-title">Add an agent to the chat</div>
+              <div className="mention-suggestion-subtitle">Power BI</div>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="compose-box-wrap">
         <div className="compose-box">
           {mention && (

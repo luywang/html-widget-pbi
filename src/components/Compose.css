@@ -134,3 +134,84 @@
   0%, 100% { opacity: 1; transform: translateX(0); }
   50% { opacity: 0.4; transform: translateX(-3px); }
 }
+
+/* ── At-mention suggestion menu ── */
+.mention-suggestion-menu {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 24px;
+  background: #FFFFFF;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  min-width: 320px;
+  max-width: 400px;
+  z-index: 1000;
+  animation: mention-menu-fade-in 0.15s ease;
+}
+
+@keyframes mention-menu-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mention-suggestion-header {
+  padding: 8px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #616161;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #F0F0F0;
+}
+
+.mention-suggestion-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.mention-suggestion-item:hover {
+  background: #F5F5F5;
+}
+
+.mention-suggestion-item:active {
+  background: #E8E8E8;
+}
+
+.mention-suggestion-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: #F8F8F8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mention-suggestion-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.mention-suggestion-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #242424;
+  margin-bottom: 2px;
+}
+
+.mention-suggestion-subtitle {
+  font-size: 12px;
+  color: #616161;
+}

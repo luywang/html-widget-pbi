@@ -115,6 +115,7 @@ export default function ChatView({
   const [activeSessionId, setActiveSessionId] = useState(null)
   const [jiraThreadAnchorId, setJiraThreadAnchorId] = useState(null)
   const [mainTypingAgentId, setMainTypingAgentId] = useState(null)
+  const [mainTypingContact, setMainTypingContact] = useState(null)
   const [channelThreadPostId, setChannelThreadPostId] = useState(null)
   const [highlightMessageId, setHighlightMessageId] = useState(null)
   const messagesEndRef = useRef(null)
@@ -442,6 +443,21 @@ export default function ChatView({
     scheduleJiraResponse(0, userMsgId)
   }
 
+  const handleMentionSelect = (agentName) => {
+    // Add system message when an agent is added via @mention
+    const systemMessage = {
+      id: `system-${Date.now()}`,
+      senderId: 'system',
+      text: `${agentName} is added here. Try chat with the agent.`,
+      time: nowTimeStr(),
+      isSystem: true,
+    }
+    setExtraMessages((prev) => ({
+      ...prev,
+      [canvasKey]: [...(prev[canvasKey] || []), systemMessage],
+    }))
+  }
+
   const handleSend = () => {
     if (!composeMention && !inputValue.trim()) return
 
@@ -484,6 +500,32 @@ export default function ChatView({
             senderId: 1,
             text: 'got it — taking a look now, will ping you in a bit',
             time: nowTimeStr(),
+          }],
+        }))
+      }, 2000)
+    }
+
+    // Power BI auto-response in Conversational AI Team (id 11)
+    // Triggers when user sends a message after adding Power BI via @mention
+    const isPowerBIContext = chatId === 11 && (
+      sentText.includes('@Power BI') ||
+      (extraMessages[bucket] || []).some(m => m.isSystem && m.text?.includes('Power BI is added here'))
+    )
+    if (isPowerBIContext) {
+      const powerBIContact = contacts.find(c => c.id === 31)
+      setMainTypingAgentId(chatId)
+      setMainTypingContact(powerBIContact)
+      setTimeout(() => {
+        setMainTypingAgentId((prev) => (prev === chatId ? null : prev))
+        setMainTypingContact(null)
+        setExtraMessages((prev) => ({
+          ...prev,
+          [bucket]: [...(prev[bucket] || []), {
+            id: `powerbi-reply-${Date.now()}`,
+            senderId: 31,
+            text: 'I will fix the vertical scale issue. Here is an updated chart with clear difference between the days:',
+            time: nowTimeStr(),
+            htmlWidget: `<iframe width="100%" height="320" scrolling="no" style="border: 1px solid #E0E0E0; border-radius: 4px; overflow: hidden;" srcdoc="<!DOCTYPE html><html><head><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Segoe UI',sans-serif;overflow:hidden}.chart-column{transition:transform .2s,box-shadow .2s;cursor:pointer;position:relative}.chart-column:hover{transform:translateY(-4px);box-shadow:0 4px 12px rgba(0,0,0,.15)}.column-value{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-size:11px;font-weight:700;opacity:0;transition:opacity .2s;pointer-events:none;z-index:2}.chart-column:hover .column-value{opacity:1}.tooltip{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:8px;background:rgba(36,36,36,.95);color:#fff;padding:6px 10px;border-radius:4px;font-size:11px;pointer-events:none;opacity:0;transition:opacity .2s;white-space:nowrap;z-index:10}.chart-column:hover .tooltip{opacity:1}.action-btn{background:#fff;border:1px solid #e0e0e0;border-radius:4px;padding:6px;font-size:12px;font-weight:600;color:#242424;cursor:pointer;transition:all .2s;font-family:inherit;display:inline-flex;align-items:center;gap:4px;text-decoration:none}.action-btn:hover{background:#f5f5f5;border-color:#c8c8c8}.action-btn:active{background:#e8e8e8}@keyframes shimmer{0%{background-position:-1000px 0}100%{background-position:1000px 0}}.skeleton-bar{background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:1000px 100%;animation:shimmer 2s infinite linear;border-radius:2px 2px 0 0}</style></head><body><div id=&quot;loading&quot; style=&quot;display:flex;flex-direction:column;height:100%;padding:16px;background:#fff&quot;><div style=&quot;font-size:14px;font-weight:600;color:#e0e0e0;margin-bottom:12px&quot;>Agent Handoff Success Rate - 30 Day Trend</div><div style=&quot;height:220px;display:flex;align-items:flex-end;gap:3px;padding:0 4px&quot;><div style=&quot;flex:1;height:120px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:180px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:160px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:190px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:170px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:185px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:195px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:175px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:165px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:188px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:192px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:178px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:183px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:196px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:186px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:172px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:189px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:194px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:181px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:177px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:191px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:184px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:193px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:187px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:179px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:182px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:197px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:190px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:198px&quot; class=&quot;skeleton-bar&quot;></div><div style=&quot;flex:1;height:200px&quot; class=&quot;skeleton-bar&quot;></div></div></div><script>window.chartData=[];function expandChart(){window.parent.postMessage({type:'expandPowerBI',data:{reportName:'Northwind Agent Handoff Metrics - 30 Day Trend',chartData:window.chartData}},'*');}function init(){const data=[];const base=95.3;const today=new Date();for(let i=29;i>=0;i--){const d=new Date(today);d.setDate(d.getDate()-i);const m=d.getMonth()+1;const day=d.getDate();const v=base+Math.sin(i/3)*2+(Math.random()-0.5)*1.5;const val=Math.round(Math.min(99.9,Math.max(90,v))*10)/10;const h=Math.floor(1200+Math.random()*400);data.push({date:m+'/'+day,value:val,count:h+' handoffs',height:Math.floor(val*2.4),modalHeight:Math.floor(val*4.8),highlighted:false});}window.chartData=data.map(d=>({date:d.date,value:d.value,count:d.count,height:d.modalHeight,highlighted:d.highlighted}));setTimeout(()=>{document.body.innerHTML='<div style=&quot;display:flex;flex-direction:column;height:100%;padding:16px;background:#fff;position:relative&quot;><button class=&quot;action-btn&quot; onclick=&quot;expandChart()&quot; style=&quot;position:absolute;top:16px;right:16px;z-index:10&quot; title=&quot;Expand&quot;><svg width=&quot;16&quot; height=&quot;16&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot;><path d=&quot;M2 9v4a1 1 0 001 1h4M14 7V3a1 1 0 00-1-1H9&quot; stroke=&quot;#424242&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/><path d=&quot;M14 2L9 7M2 14l5-5&quot; stroke=&quot;#424242&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot;/></svg></button><div style=&quot;font-size:14px;font-weight:600;color:#242424;margin-bottom:12px&quot;>Agent Handoff Success Rate - 30 Day Trend</div><div style=&quot;height:220px;display:flex;align-items:flex-end;gap:3px;padding:0 4px;overflow-x:auto&quot;>'+data.map(d=>'<div style=&quot;flex:1;display:flex;flex-direction:column;align-items:center;min-width:0&quot;><div class=&quot;chart-column&quot; style=&quot;width:100%;background:'+(d.highlighted?'linear-gradient(180deg,#0078D4 0%,#1890E8 100%)':'linear-gradient(180deg,#6264A7 0%,#7C7EB8 100%)')+';border-radius:2px 2px 0 0;height:'+d.height+'px&quot;><div class=&quot;column-value&quot;>'+d.value+'%</div><div class=&quot;tooltip&quot;>'+d.date+': '+d.value+'% &bull; '+d.count+'</div></div><div style=&quot;margin-top:6px;font-size:9px;color:'+(d.highlighted?'#242424':'#999')+';text-align:center;font-weight:'+(d.highlighted?'600':'400')+';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%&quot;>'+d.date+'</div></div>').join('')+'</div><div style=&quot;margin-top:12px&quot;><a href=&quot;https://app.powerbi.com&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot; class=&quot;action-btn&quot; style=&quot;padding:6px 12px&quot; title=&quot;Opens in new window&quot;><svg width=&quot;14&quot; height=&quot;14&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot;><rect x=&quot;2&quot; y=&quot;6&quot; width=&quot;3&quot; height=&quot;8&quot; rx=&quot;1&quot; fill=&quot;#F2C811&quot;/><rect x=&quot;6.5&quot; y=&quot;4&quot; width=&quot;3&quot; height=&quot;10&quot; rx=&quot;1&quot; fill=&quot;#F2C811&quot;/><rect x=&quot;11&quot; y=&quot;2&quot; width=&quot;3&quot; height=&quot;12&quot; rx=&quot;1&quot; fill=&quot;#F2C811&quot;/></svg>Open in Power BI<svg width=&quot;12&quot; height=&quot;12&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; style=&quot;margin-left:4px&quot;><path d=&quot;M6 3h7v7M13 3L3 13&quot; stroke=&quot;#424242&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/></svg></a></div></div>';},2000);}init();</script></body></html>"></iframe>`,
           }],
         }))
       }, 2000)
@@ -572,12 +614,44 @@ export default function ChatView({
                 </div>
               )}
               {messages.map((msg) => (
-                <MessageRow
-                  key={msg.id}
-                  message={msg}
-                  activeContact={activeContact}
-                  onOpenThread={openJiraThread}
-                />
+                msg.isSystem ? (
+                  <div key={msg.id} className="system-message">
+                    <div className="system-message-icon">
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="2" y="2" width="16" height="16" rx="4" fill="#E8E8E8"/>
+                        <rect x="5" y="5" width="10" height="10" rx="2" fill="#999"/>
+                      </svg>
+                    </div>
+                    <span className="system-message-text">
+                      {msg.text.split(/(Power BI)/).map((part, i) =>
+                        part === 'Power BI' ? (
+                          <button
+                            key={i}
+                            className="system-message-link"
+                            onClick={() => {
+                              // Navigate to Power BI agent chat when clicked
+                              const powerBIAgent = contacts.find(c => c.name === 'Power BI')
+                              if (powerBIAgent) {
+                                onSelectChat(powerBIAgent.id)
+                              }
+                            }}
+                          >
+                            {part}
+                          </button>
+                        ) : (
+                          part
+                        )
+                      )}
+                    </span>
+                  </div>
+                ) : (
+                  <MessageRow
+                    key={msg.id}
+                    message={msg}
+                    activeContact={activeContact}
+                    onOpenThread={openJiraThread}
+                  />
+                )
               ))}
               <div ref={messagesEndRef} />
             </div>
@@ -587,8 +661,9 @@ export default function ChatView({
         <div className="chat-compose-area">
           {mainTypingAgentId === activeChatId && (
             <TypingIndicator
-              contact={activeContact}
+              contact={mainTypingContact || activeContact}
               className="chat-compose-typing"
+              showText={!!mainTypingContact}
             />
           )}
           <Compose
@@ -598,6 +673,7 @@ export default function ChatView({
             onClearMention={() => setComposeMention(null)}
             onSend={handleSend}
             isChannel={isChannel}
+            onMentionSelect={handleMentionSelect}
           />
         </div>
       </div>

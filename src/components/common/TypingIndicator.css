@@ -26,3 +26,9 @@
   0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
   30% { opacity: 1; transform: translateY(-3px); }
 }
+
+.typing-indicator-text {
+  font-size: 13px;
+  color: #616161;
+  font-style: italic;
+}

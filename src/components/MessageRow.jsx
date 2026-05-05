@@ -135,6 +135,9 @@ const MessageRow = memo(function MessageRow({ message, activeContact, onOpenThre
               })
             : message.text}
           {message.link && <LinkCard link={message.link} />}
+          {message.htmlWidget && !message.cards && (
+            <div className="message-html-widget" dangerouslySetInnerHTML={{ __html: message.htmlWidget }} />
+          )}
           {message.cards && showCards && (
             <div className="message-cards">
               {message.cards.map((card, i) => (

@@ -70,6 +70,10 @@
   min-width: 0;
 }
 
+.message-content-wrap:has(.message-html-widget) {
+  max-width: 100%;
+}
+
 /* Channel posts are typically longer (announcement-style) — give them a
    slightly wider bubble than regular chat bubbles so body copy doesn't
    wrap as aggressively. */
@@ -353,6 +357,16 @@
   width: 100%;
 }
 
+.message-html-widget {
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.message-html-widget iframe {
+  display: block;
+  width: 100%;
+}
+
 .card-report-name {
   font-size: 16px;
   font-weight: 700;
@@ -476,5 +490,46 @@
 }
 
 .session-source-banner-link:hover {
+  text-decoration: underline;
+}
+
+/* ── System messages ── */
+.system-message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  margin: 8px 0;
+  margin-left: -40px;
+}
+
+.system-message-icon {
+  flex-shrink: 0;
+  width: 32px;
+  padding-top: 4px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.system-message-text {
+  font-size: 13px;
+  color: #616161;
+  line-height: 20px;
+}
+
+.system-message-link {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #6264A7;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: none;
+}
+
+.system-message-link:hover {
   text-decoration: underline;
 }

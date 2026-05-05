@@ -46,6 +46,7 @@ export const contacts = [
   { id: 29, name: 'Client engagements', initials: 'MC', color: '#6264A7', status: null, isChannel: true, memberCount: 4 },
   // Morgan Collective partner (used in channel replies).
   { id: 30, name: 'Taylor Reed', initials: 'TR', color: '#038387', status: 'available' },
+  { id: 31, name: 'Power BI', initials: null, color: '#F2C811', status: null, isAgent: true, logo: 'powerbi', description: 'Business intelligence and data visualization' },
 ]
 
 // Teams the user belongs to. Each team has a list of channels (by contact id,

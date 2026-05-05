@@ -6,7 +6,7 @@ import './TypingIndicator.css'
 // — do not roll a new one. Positioning (floating above compose, inline
 // in a rail, etc.) is the caller's responsibility; this component only
 // owns the avatar + dots visual.
-export default function TypingIndicator({ contact, avatarSize = 32, dotSize = 5, className = '' }) {
+export default function TypingIndicator({ contact, avatarSize = 32, dotSize = 5, className = '', showText = false }) {
   if (!contact) return null
   return (
     <div
@@ -18,6 +18,7 @@ export default function TypingIndicator({ contact, avatarSize = 32, dotSize = 5,
       <span className="typing-indicator-dots">
         <span /><span /><span />
       </span>
+      {showText && <span className="typing-indicator-text">{contact.name} is typing</span>}
     </div>
   )
 }
