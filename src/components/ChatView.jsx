@@ -506,7 +506,6 @@ export default function ChatView({
     }
 
     // Power BI auto-response in Conversational AI Team (id 11)
-    // Triggers when user sends a message after adding Power BI via @mention
     const isPowerBIContext = chatId === 11 && (
       sentText.includes('@Power BI') ||
       (extraMessages[bucket] || []).some(m => m.isSystem && m.text?.includes('Power BI is added here'))
